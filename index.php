@@ -258,7 +258,7 @@
                 </div>
                 <!-- END SIDEBAR -->
                 <!-- BEGIN CONTENT -->
-                <div class="page-content-wrapper">
+                <div class="page-content-wrapper" id="fff">
                     <!-- BEGIN CONTENT BODY -->
                     <div class="page-content" id="div-id-name">
 
@@ -352,39 +352,7 @@ $cursor2=(array)$cursor;
                                                     <td><?php echo $document["rl"] ; ?></td>
                                                          
                                        
-                                                    <td><a class="btn btn-icon-only red" id="<?php echo $document["_id"] ; ?>" onClick="swal({
-  title: 'es-tu sûr ?',
-  imageWidth: '400',
-  imageHeight: '150',
-  imageAlt: 'User image',
-  icon: 'error',
-
-  text: 'Voulez vous vraiment supprimer cette campagne !',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Oui je confirme',
-  cancelButtonText: 'Non',
-  confirmButtonClass: 'btn-success',
-  cancelButtonClass: 'btn-danger',
-  buttonsStyling: true
-}).then(function () {
-  swal(
-    'Supprimé!',
-    '<?php echo $document["name"] ; ?>',
-    'success'
-  ).then(function (){window.location.replace('delete.php?id=<?php echo $document["_id"]; ?>')})
-}, function (dismiss) {
-  // dismiss can be 'cancel', 'overlay',
-  // 'close', and 'timer'
-  if (dismiss === 'cancel') {
-    swal(
-      'Annulée',
-      'la suppression a été annulée :)',
-      'error'
-    )
-  }
-})"><i class="fa fa-trash"></i></a> </td>
+                                                    <td><a  onClick="verif('<?php echo $document["_id"] ; ?>');"class="btn btn-icon-only red" id="<?php echo $document["_id"] ; ?>" ><i class="fa fa-trash"></i></a> </td>
                                                     <td><a class="btn btn-icon-only yellow" href="modifier.php?id=<?php echo $document["_id"]; ?>"><i class="fa fa-edit"></i></a> </td>                           
                                                      
                                                             
@@ -449,6 +417,58 @@ $cursor2=(array)$cursor;
 
 
         </script> 
+
+
+<script>
+
+function verif(id){
+    swal({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then(function(){
+    swal(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    ).then(function(){
+        $.ajax({
+                url:'api.php',
+                type: "GET",
+                dataType: "html",
+ 
+                data: {fct:'deletecamp',camp_id:id },
+                async: true,
+                success:function(){
+        $('sample_1').html(); // rafraichi toute ta DIV "bien sur il lui faut un id "
+    }
+            });
+           $("#sample_1").load(location.href+" #sample_1>*","")
+    })
+   
+},function (dismiss) {
+  // dismiss can be 'cancel', 'overlay',
+  // 'close', and 'timer'
+  if (dismiss === 'cancel') {
+    swal(
+      'Annulée',
+      'la suppression a été annulée :)',
+      'error'
+    )
+  }
+})
+   
+           
+         return false;
+}
+
+
+
+</script>
       
   </body>
 </html>

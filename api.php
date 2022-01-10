@@ -25,12 +25,14 @@ $m =new MongoClient("mongodb+srv://Fadhelali:Fadhel1416$@cluster0.cp4ra.mongodb.
 $db = $m->test2;
 $collection = $db->campagne;
 // iterate cursor to display title of documents
-$cursor=$collection->findOne(["_id"=> new MongoId($_REQUEST["id"])]);
-$message="compagnie avec le nom ".$cursor["name"]." a ete supprimer avec sucess";
+if ($_GET['fct']=='deletecamp') {
+    $camp_id=$_GET['camp_id'];
+    $cursor=$collection->findOne(["_id"=> new MongoId($camp_id)]);
+   // $message="compagnie avec le nom ".$cursor["name"]." a ete supprimer avec sucess";
 
-$cursor2=$collection->deleteOne(["_id"=> new MongoId($_REQUEST["id"])]);
-$_SESSION["message"]=$message;
-//header("Location:index.php");
-echo json_encode($cursor2);
-
+    $cursor2=$collection->deleteOne(["_id"=> new MongoId($camp_id)]);
+    $_SESSION["message"]=$message;
+    //header("Location:index.php");
+    echo json_encode($cursor2);
+}
 ?>
