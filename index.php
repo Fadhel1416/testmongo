@@ -13,6 +13,7 @@
 <meta content="width=device-width, initial-scale=1" name="viewport" />
 <meta content="Preview page of Metronic Admin Theme #1 for buttons extension demos" name="description" />
 <meta content="" name="author" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/6.1.0/sweetalert2.min.css" />
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
@@ -290,6 +291,8 @@ $collection = $db->campagne;
 $cursor = $collection->find();
 // iterate cursor to display title of documents
 $cursor2=(array)$cursor;
+$datacol=['salah','mohammed','hedi'];
+$dataval=[1,2,3];
 
 
 
@@ -372,6 +375,19 @@ $cursor2=(array)$cursor;
                                 </div>
                                
                             </div>
+                            <div class="row">
+						<div class ="col-md-6">
+
+<canvas id="myChart" width="50" height="30"></canvas>
+
+
+</div>
+<div class ="col-md-6">
+
+<canvas id="myChart2" width="50" height="30"></canvas>
+</div>
+									</div>
+
                         </div>    
                        
                       
@@ -405,6 +421,10 @@ $cursor2=(array)$cursor;
         <script src="assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
         <script src="assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
          <script src="https://cdn.jsdelivr.net/sweetalert2/6.1.0/sweetalert2.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
         <!-- END THEME LAYOUT SCRIPTS -->
         <script>
             $(document).ready(function()
@@ -465,6 +485,100 @@ function verif(id){
            
          return false;
 }
+ 
+var ctx = document.getElementById('myChart');
+
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: <?php echo json_encode($datacol);?>,
+        datasets: [{
+            label: '#Number of post by categories',
+            data:  <?php echo json_encode($dataval);?>,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+     options: {
+		plugins: {
+      title: {
+        display: true,
+        text: 'Chart.js Stacked Line/Bar Chart'
+      }
+    },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+		
+    }
+});
+
+var ctx1 = document.getElementById('myChart2');
+
+
+var myChart = new Chart(ctx1, {
+    type: 'line',
+    data: {
+        labels: <?php echo json_encode($datacol);?>,
+        datasets: [{
+            label: '#Number of post by categories',
+            data:  <?php echo json_encode($dataval);?>,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+     options: {
+		plugins: {
+      title: {
+        display: true,
+        text: 'Chart.js Stacked Line/Bar Chart'
+      }
+    },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+		
+    }
+});
 
 
 
